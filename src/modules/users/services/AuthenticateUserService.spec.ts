@@ -35,7 +35,7 @@ describe('AuthenticateUser', () => {
     expect(response.user).toEqual(user);
   });
 
-  it('should not be able to authenticate with non existent user', () => {
+  it('should not be able to authenticate with non existent user', async () => {
     const fakeUsersRepository = new FakeUserRepository();
     const fakeHashProvider = new FakeHashProvider();
 
@@ -44,7 +44,7 @@ describe('AuthenticateUser', () => {
       fakeHashProvider,
     );
 
-    expect(
+    await expect(
       authenticateUserService.execute({
         email: 'johndoe@example.com',
         password: '123456',
@@ -72,7 +72,7 @@ describe('AuthenticateUser', () => {
       password: '123456',
     });
 
-    expect(
+    await expect(
       authenticateUserService.execute({
         email: 'johndoe@example.com',
         password: '654321',
