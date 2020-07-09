@@ -19,6 +19,16 @@ class FakeUsersRepository implements IUsersRepository {
     return foundUser;
   }
 
+  public async findAllProviders(except_user_id?: string): Promise<User[]> {
+    let { users } = this;
+
+    if (except_user_id) {
+      users = this.users.filter(user => user.id !== except_user_id);
+    }
+
+    return users;
+  }
+
   public async create({
     name,
     email,
